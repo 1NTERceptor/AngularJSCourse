@@ -1,10 +1,14 @@
-// MODULE
-var angularApp = angular.module('angularApp', []);
+var myApp = angular.module('myApp', []);
 
-// CONTROLLERS
-angularApp.controller('mainController', ['$scope', function ($scope) {
+myApp.controller('mainController', function($scope) {
     
-}]);
-
-
-
+    $scope.name = 'Jane Doe';
+    $scope.occupation = 'Coder';
+    
+    $scope.getname = function() {
+        return 'John Doe';
+    }
+    
+    console.log($scope);
+    
+});
