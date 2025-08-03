@@ -1,21 +1,26 @@
-var myApp = angular.module('myApp', ['ngMessages', 'ngResource']);
+var myApp = angular.module('myApp', []);
 
-myApp.controller('mainController', ['$scope', '$log', '$filter', '$resource', function($scope, $log, $filter, $resource) {
+myApp.controller('mainController', ['$scope', '$filter', '$timeout', function($scope, $filter, $timeout) {
     
-    console.log($scope);
-    console.log($log);
-    console.log($filter);
-    console.log($resource);
+    $scope.handle = '';
     
-    console.log("Hello World");
-    console.info("info");
-    console.warn("warn");
-    console.debug("debug");
-    console.error("error");
-
-    $scope.name = "John Doe";
-    $scope.formattedname = $filter('uppercase')($scope.name);
-
-    $log.info($scope.name);
-    $log.info("Formatted Name: " + $scope.formattedname);
+    $scope.lowercasehandle = function() {
+        return $filter('lowercase')($scope.handle);
+    };
+    
+    $scope.$watch('handle', function(newValue, oldValue) {
+        
+        console.info('Changed!');
+        console.log('Old:' + oldValue);
+        console.log('New:' + newValue);
+        
+    });
+    
+    $timeout(function() {
+       
+        $scope.handle = 'newtwitterhandle';
+        console.log('Scope changed!');
+        
+    }, 3000);
+    
 }]);
