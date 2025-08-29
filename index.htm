@@ -61,9 +61,11 @@
                 <h3>Rules</h3>
                 <ul>
                     <li ng-repeat="rule in rules">
-                        {{ rule.rulename }}
+                        {{ rule.RuleName }}
                     </li>
                 </ul>
+
+                Add rule: <input type="text" ng-model="newRule" /><a href="#" class="btn btn-default" ng-click="addRule()">Add</a>
                 
             </div>
             

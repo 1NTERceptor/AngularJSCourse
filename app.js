@@ -1,35 +1,41 @@
 var myApp = angular.module('myApp', []);
 
-myApp.controller('mainController', ['$scope', '$filter', '$timeout', function($scope, $filter, $timeout) {
-    
+myApp.controller('mainController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
+
     $scope.handle = '';
-    
-    $scope.lowercasehandle = function() {
+
+    $scope.lowercasehandle = function () {
         return $filter('lowercase')($scope.handle);
     };
-    
-    $scope.$watch('handle', function(newValue, oldValue) {
-        
-        console.info('Changed!');
-        console.log('Old:' + oldValue);
-        console.log('New:' + newValue);
-        
-    });
-    $scope.characters = 5;
-    
-    $timeout(function() {
-       
-        $scope.handle = 'newtwitterhandle';
-        console.log('Scope changed!');
-    }, 3000);
 
-    $scope.rules = [
-      
-        { rulename: "Must be 5 characters" },
-        { rulename: "Must not be used elsewhere" },
-        { rulename: "Must be cool" }  
-    ];
-    
-    console.log($scope.rules);
-    
+    $scope.characters = 5;
+
+    $http.get('/api')
+        .success(function (result) {
+
+            $scope.rules = result;
+
+        })
+        .error(function (data, status) {
+
+            console.log(data);
+
+        });
+
+    $scope.newRule = '';
+    $scope.addRule = function () {
+        $http.post('/api', { newRule: $scope.newRule })
+            .success(function (result) {
+
+                console.log(result);
+                $scope.rules = result;
+                $scope.newRule = '';
+
+            })
+            .error(function (data, status) {
+
+                console.log(data);
+
+            });
+    };
 }]);
