@@ -15,12 +15,21 @@ myApp.controller('mainController', ['$scope', '$filter', '$timeout', function($s
         console.log('New:' + newValue);
         
     });
+    $scope.characters = 5;
     
     $timeout(function() {
        
         $scope.handle = 'newtwitterhandle';
         console.log('Scope changed!');
-        
     }, 3000);
+
+    $scope.rules = [
+      
+        { rulename: "Must be 5 characters" },
+        { rulename: "Must not be used elsewhere" },
+        { rulename: "Must be cool" }  
+    ];
+    
+    console.log($scope.rules);
     
 }]);
