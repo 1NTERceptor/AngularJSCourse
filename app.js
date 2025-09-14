@@ -1,41 +1,15 @@
-var myApp = angular.module('myApp', []);
-
-myApp.controller('mainController', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
-
-    $scope.handle = '';
-
-    $scope.lowercasehandle = function () {
-        return $filter('lowercase')($scope.handle);
-    };
-
-    $scope.characters = 5;
-
-    $http.get('/api')
-        .success(function (result) {
-
-            $scope.rules = result;
-
-        })
-        .error(function (data, status) {
-
-            console.log(data);
-
-        });
-
-    $scope.newRule = '';
-    $scope.addRule = function () {
-        $http.post('/api', { newRule: $scope.newRule })
-            .success(function (result) {
-
-                console.log(result);
-                $scope.rules = result;
-                $scope.newRule = '';
-
-            })
-            .error(function (data, status) {
-
-                console.log(data);
-
-            });
-    };
-}]);
+window.addEventListener('hashchange', function() {
+   
+    if (window.location.hash === '#/bookmark/1') {
+        console.log('Page 1 is cool.');
+    }
+    
+    if (window.location.hash === '#/bookmark/2') {
+        console.log('Let me go get Page 2.');
+    }
+    
+    if (window.location.hash === '#/bookmark/3') {
+        console.log('Here\'s Page 3.');
+    }
+    
+});
